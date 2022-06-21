@@ -6,10 +6,10 @@
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public virtual List<CategoryBook> CategoryBook { get; set; }
+        public  List<Category> Category{ get; set; }
       
      
-        public virtual ICollection<BookAuthor> Authors { get; set; }
+        public  ICollection<Author> Authors { get; set; }
        
     }
 }

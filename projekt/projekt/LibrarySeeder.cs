@@ -13,15 +13,47 @@ namespace projekt
         {
             if (_context.Database.CanConnect())
             {
-      
+
                 if (!_context.Books.Any())
                 {
                     var Books = GetBooks();
                     _context.Books.AddRange(Books);
                     _context.SaveChanges();
                 }
+                if (!_context.Authors.Any())
+                {
+                    var author = Author();
+                    _context.Authors.Add(author);
+                    _context.SaveChanges();
+                }
+                if (!_context.Categories.Any())
+                {
+                    var category = Category();
+                    _context.Categories.Add(category);
+                    _context.SaveChanges();
+                }
 
             }
+        }
+        private Category Category()
+        {
+            var category = new Category()
+            {
+                Name = "Przygoda",
+                Description = "Przygoda",
+            };
+            return category;
+        }
+        private Author Author()
+        {
+            var author = new Author()
+            {
+                Name = "Bartek",
+                LastName = "Bartek",
+                DateOfBirth = DateTime.Now,
+
+            };
+            return author;
         }
 
 
@@ -34,42 +66,38 @@ namespace projekt
           {
               Name = "W pustyni i w puszczy",
               Description = "Przygoda w afryce",
-            
-              CategoryBook = new List<CategoryBook>()
+
+
+              Category= new List<Category>()
               {
-                  new CategoryBook()
+                  new Category()
                   {
-                     
-                      BookId = 1,
-                     
-                     
+                      Name="Akcja",
+                      Description="Akcja"
                   }
-              
-                  
+
               },
-      
-              Authors = new list<BookAuthor>()
+
+              Authors = new List<Author>()
               {
-                new BookAuthor()
+                new Author()
                 {
-                     
-                      
+                                    Name = "Bartek",
+                LastName = "Bartek",
+                DateOfBirth = DateTime.Now,
 
+                 }
 
-
-
-
-    }
               },
-                  
-
-          },
 
 
-            };
+          } };
+
+
+
             return books;
         }
 
-       
+
     }
 }

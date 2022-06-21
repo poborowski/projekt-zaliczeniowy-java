@@ -6,6 +6,7 @@ using projekt;
 using projekt.Controllers;
 using projekt.Entity;
 using System.Reflection;
+using AutoMapper;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +35,7 @@ builder.Services.AddAuthentication(option =>
 });
 builder.Services.AddDbContext<LibraryDbContext>();
 builder.Services.AddScoped<LibrarySeeder>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddSingleton(authenticationSetting);
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();

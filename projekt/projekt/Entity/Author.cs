@@ -10,7 +10,7 @@ namespace projekt.Entity
         public string LastName { get; set; }
 
         public DateTime DateOfBirth { get; set; }
-       
-        public virtual ICollection<BookAuthor> Books{ get; set; }
+       [JsonIgnore]
+        public ICollection<Book> Books{ get; set; }
     }
 }

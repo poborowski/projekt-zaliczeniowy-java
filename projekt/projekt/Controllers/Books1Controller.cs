@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,16 +12,19 @@ namespace projekt.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BooksController : ControllerBase
+    public class Books1Controller : ControllerBase
     {
         private readonly LibraryDbContext _context;
+        private readonly IMapper _mapper;
 
-        public BooksController(LibraryDbContext context)
+
+        public Books1Controller(LibraryDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        // GET: api/Books
+        // GET: api/Books1
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {
@@ -28,10 +32,10 @@ namespace projekt.Controllers
           {
               return NotFound();
           }
-            return await _context.Books.ToListAsync();
+            return await _context.Books.Include(c => c.Category).Include(c=>c.Authors).ToListAsync();
         }
 
-        // GET: api/Books/5
+        // GET: api/Books1/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> GetBook(int id)
         {
@@ -39,7 +43,7 @@ namespace projekt.Controllers
           {
               return NotFound();
           }
-            var book = await _context.Books.FindAsync(id);
+            var book = await _context.Books.Include(c=>c.Category).Include(c=>c.Authors).FirstOrDefaultAsync(c=>c.Id==id);
 
             if (book == null)
             {
@@ -49,17 +53,18 @@ namespace projekt.Controllers
             return book;
         }
 
-        // PUT: api/Books/5
+        // PUT: api/Books1/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBook(int id, Book book)
+        public async Task<IActionResult> PutBook(int id, UpdateBookDto book)
         {
-            if (id != book.Id)
+            var mapped= _mapper.Map<Book>(book);
+            if (id != mapped.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(book).State = EntityState.Modified;
+            _context.Entry(mapped).State = EntityState.Modified;
 
             try
             {
@@ -80,22 +85,24 @@ namespace projekt.Controllers
             return NoContent();
         }
 
-        // POST: api/Books
+        // POST: api/Books1
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Book>> PostBook(Book book)
+        public async Task<ActionResult<Book>> PostBook(BookDto book)
         {
           if (_context.Books == null)
           {
               return Problem("Entity set 'LibraryDbContext.Books'  is null.");
           }
-            _context.Books.Add(book);
+          var mapped=_mapper.Map<Book>(book);
+
+            _context.Books.Add(mapped);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBook", new { id = book.Id }, book);
+            return CreatedAtAction("GetBook", new { id = mapped.Id }, mapped);
         }
 
-        // DELETE: api/Books/5
+        // DELETE: api/Books1/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBook(int id)
         {

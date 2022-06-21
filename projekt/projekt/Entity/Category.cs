@@ -8,7 +8,7 @@ namespace projekt.Entity
    
         public string Description { get; set; }
        public string Name { get; set; }
-
-        public virtual ICollection<CategoryBook> Books { get; set; }
+        [JsonIgnore]
+        public ICollection<Book> Books { get; set; }
     }
 }
