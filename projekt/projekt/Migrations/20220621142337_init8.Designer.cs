@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using projekt.Entity;
 
@@ -11,9 +12,10 @@ using projekt.Entity;
 namespace projekt.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    partial class LibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220621142337_init8")]
+    partial class init8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,12 +55,6 @@ namespace projekt.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -100,6 +96,9 @@ namespace projekt.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("BookId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -110,26 +109,9 @@ namespace projekt.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BookId");
+
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("projekt.Entity.CategoryBook", b =>
-                {
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("BookId", "CategoryId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("CategoryBook");
                 });
 
             modelBuilder.Entity("projekt.Entity.User", b =>
@@ -183,23 +165,11 @@ namespace projekt.Migrations
                     b.Navigation("Book");
                 });
 
-            modelBuilder.Entity("projekt.Entity.CategoryBook", b =>
+            modelBuilder.Entity("projekt.Entity.Category", b =>
                 {
-                    b.HasOne("projekt.Entity.Book", "Book")
-                        .WithMany("CategoryBook")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("projekt.Entity.Category", "Category")
-                        .WithMany("Books")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("Category");
+                    b.HasOne("projekt.Entity.Book", null)
+                        .WithMany("Categories")
+                        .HasForeignKey("BookId");
                 });
 
             modelBuilder.Entity("projekt.Entity.Author", b =>
@@ -211,12 +181,7 @@ namespace projekt.Migrations
                 {
                     b.Navigation("Authors");
 
-                    b.Navigation("CategoryBook");
-                });
-
-            modelBuilder.Entity("projekt.Entity.Category", b =>
-                {
-                    b.Navigation("Books");
+                    b.Navigation("Categories");
                 });
 #pragma warning restore 612, 618
         }

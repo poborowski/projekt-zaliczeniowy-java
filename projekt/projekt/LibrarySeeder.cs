@@ -35,13 +35,14 @@ namespace projekt
               Name = "W pustyni i w puszczy",
               Description = "Przygoda w afryce",
             
-              Categories = new List<Category>()
+              CategoryBook = new List<CategoryBook>()
               {
-                  new Category()
+                  new CategoryBook()
                   {
-
-                      Name = "przygodowe",
-                      Description = "Przgody",
+                     
+                      BookId = 1,
+                     
+                     
                   }
               
                   
@@ -51,12 +52,12 @@ namespace projekt
               {
                 new BookAuthor()
                 {
-                    Name = "Bartek",
-                    BookId = 1,
-            
-                    AuthorId = 1,
-                 
-     
+                     
+                      
+
+
+
+
 
     }
               },

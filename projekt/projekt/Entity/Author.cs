@@ -11,6 +11,6 @@ namespace projekt.Entity
 
         public DateTime DateOfBirth { get; set; }
        
-        public ICollection<BookAuthor> Books{ get; set; }
+        public virtual ICollection<BookAuthor> Books{ get; set; }
     }
 }

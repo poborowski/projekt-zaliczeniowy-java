@@ -5,9 +5,10 @@ namespace projekt.Entity
     public class Category
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+   
         public string Description { get; set; }
-        [JsonIgnore]
-        public virtual List<Book> Books { get; set; }
+       public string Name { get; set; }
+
+        public virtual ICollection<CategoryBook> Books { get; set; }
     }
 }

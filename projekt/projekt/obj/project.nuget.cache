@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rkvRYnCnmgar9KOo+cDwg0dFBQaHpST6xEnkb/a59NKjAdeKMWE2Ie6gQyXiMXC7Kkpb+iCa1dI6b7D0iFDpZQ==",
+  "dgSpecHash": "Tp9agzAAwRSyOl7s+bfQysLmrXe1hJzYhay1sydSe6gDF8qr2OLUFTHohbgcbo0JzEjNKU7522z6ezGSaK/FTQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Bartek\\source\\repos\\projekt\\projekt\\projekt.csproj",
+  "projectFilePath": "C:\\Users\\Bartek\\Documents\\GitHub\\projekt-zaliczeniowy-java\\projekt\\projekt\\projekt.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Bartek\\.nuget\\packages\\fluentvalidation\\11.0.3\\fluentvalidation.11.0.3.nupkg.sha512",
     "C:\\Users\\Bartek\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.0.3\\fluentvalidation.aspnetcore.11.0.3.nupkg.sha512",
